@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BibliothequeJDS</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Bibliothèque</string>
+    <string name="title_search">Recherche</string>
+    <string name="title_profile">Profil</string>
+    <string name="titre">Bibliothèque</string>
 </resources>

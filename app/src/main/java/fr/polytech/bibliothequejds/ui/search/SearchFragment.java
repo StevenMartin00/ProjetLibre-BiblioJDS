@@ -1,20 +1,18 @@
-package fr.polytech.bibliothequejds.ui.dashboard;
+package fr.polytech.bibliothequejds.ui.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import fr.polytech.bibliothequejds.R;
 
-public class DashboardFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
 
@@ -22,14 +20,10 @@ public class DashboardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         dashboardViewModel =
                 ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
+        //TODO: mettre les trucs ici
+        AppCompatTextView actionBarTitle = getActivity().findViewById(R.id.tvTitle);
+        actionBarTitle.setText(R.string.title_search);
         return root;
     }
 }

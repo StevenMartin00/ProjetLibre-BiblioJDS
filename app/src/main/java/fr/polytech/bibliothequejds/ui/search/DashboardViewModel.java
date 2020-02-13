@@ -1,4 +1,4 @@
-package fr.polytech.bibliothequejds.ui.dashboard;
+package fr.polytech.bibliothequejds.ui.search;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
