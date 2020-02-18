@@ -1,7 +1,6 @@
 package fr.polytech.bibliothequejds;
 
 import android.os.Bundle;
-import android.view.Gravity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

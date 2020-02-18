@@ -31,7 +31,7 @@
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
         android:gravity="center"
-        android:textColor="#040404"
+        android:textColor="@android:color/white"
         android:textSize="15dip"
         android:textStyle="bold"
         android:typeface="sans" />

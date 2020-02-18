@@ -3,6 +3,7 @@ package fr.polytech.bibliothequejds;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,15 +15,65 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import fr.polytech.bibliothequejds.model.Game;
+import fr.polytech.bibliothequejds.ui.CustomViewHolder;
+import fr.polytech.bibliothequejds.ui.ItemClickListener;
 
 /**
  * Custom Adapter used to create a list view with a text view and an image view
  */
-public class CustomAdapter implements ListAdapter
+public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
+
+    private Context c;
+    private ArrayList<Game> games;
+
+    public CustomAdapter(Context c, ArrayList<Game> games) {
+        super();
+        this.c = c;
+        this.games = games;
+    }
+
+    @Override
+    public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v= LayoutInflater.from(c).inflate(R.layout.list_row,parent,false);
+        return new CustomViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(CustomViewHolder holder, int position) {
+
+        //BIND DATA
+        holder.getTitle().setText(games.get(position).getGameName());
+        Bitmap bm = BitmapFactory.decodeResource(c.getResources(), games.get(position).getThumbnailId());
+        holder.getImage().setImageBitmap(Bitmap.createScaledBitmap(bm, 400, 300, false));
+
+        //ITEM CLICK
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onItemClick(int pos) {
+                Toast.makeText(c, games.get(pos).getGameName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return games.size();
+    }
+}
+
+
+
+/*public class CustomAdapter implements ListAdapter
 {
     private ArrayList<Game> games;
     private Context context;
@@ -172,4 +223,4 @@ public class CustomAdapter implements ListAdapter
         float density = context.getResources().getDisplayMetrics().density;
         return Math.round((float)dp * density);
     }
-}
+}*/
