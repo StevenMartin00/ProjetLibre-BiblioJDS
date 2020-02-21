@@ -3,7 +3,7 @@ package fr.polytech.bibliothequejds.model;
 public class Game
 {
     private String gameName;
-    private int thumbnailId;
+    private String thumbnail;
     private int minPlayers;
     private int maxPlayers;
     private int meanTime;
@@ -16,7 +16,7 @@ public class Game
     public Game()
     {
         this.gameName = "";
-        this.thumbnailId = 0;
+        this.thumbnail = "";
         this.minPlayers = 0;
         this.maxPlayers = 0;
         this.meanTime = 0;
@@ -27,10 +27,10 @@ public class Game
         this.categoryName = "";
     }
 
-    public Game(String gameName, int thumbnailId)
+    public Game(String gameName, String thumbnail)
     {
         this.gameName = gameName;
-        this.thumbnailId = thumbnailId;
+        this.thumbnail = thumbnail;
         this.minPlayers = 0;
         this.maxPlayers = 0;
         this.meanTime = 0;
@@ -41,10 +41,10 @@ public class Game
         this.categoryName = "";
     }
 
-    public Game(String gameName, int thumbnailId, int minPlayers, int maxPlayers, int meanTime, double notation, int age, String difficulty, String yearOfPublication, String categoryName)
+    public Game(String gameName, String thumbnail, int minPlayers, int maxPlayers, int meanTime, double notation, int age, String difficulty, String yearOfPublication, String categoryName)
     {
         this.gameName = gameName;
-        this.thumbnailId = thumbnailId;
+        this.thumbnail = thumbnail;
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
         this.meanTime = meanTime;
@@ -127,11 +127,11 @@ public class Game
         this.categoryName = categoryName;
     }
 
-    public int getThumbnailId() {
-        return thumbnailId;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
-    public void setThumbnailId(int thumbnailId) {
-        this.thumbnailId = thumbnailId;
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

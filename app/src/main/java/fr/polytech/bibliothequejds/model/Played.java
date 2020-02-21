@@ -15,11 +15,11 @@ public class Played
         this.numberOfGamesPlayed = 0;
     }
 
-    public Played(User player, Game gamePlayed, double score, int numberOfGamesPlayed) {
+    public Played(User player, Game gamePlayed, double score) {
         this.player = player;
         this.gamePlayed = gamePlayed;
         this.score = score;
-        this.numberOfGamesPlayed = numberOfGamesPlayed;
+        this.numberOfGamesPlayed += 1;
     }
 
     public User getPlayer() {

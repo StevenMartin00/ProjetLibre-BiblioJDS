@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param context the context to use for locating paths to the database
      */
     public DBHelper(Context context){
-        super(context,DB_NAME,null,DB_VERSION);
+        super(context, DB_NAME,null, DB_VERSION);
     }
     
     /**
@@ -62,12 +62,30 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param db the database where to create the table
      */
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        //TODO: modifier
-        String sql = "create table if not exists " + TABLE_LIBRARY +
-                " (Id integer primary key, Name text, Path text, Jitter real, Shimmer real, F0 real)";
-        db.execSQL(sql);
+    public void onCreate(SQLiteDatabase db)
+    {
+        String user = "create table if not exists " + TABLE_USER +
+                " (userId integer primary key, username text, password text, birthDate text, created_at DATETIME default current_timestamp )";
+        String game = "create table if not exists " + TABLE_GAMES +
+                " (gameId integer primary key, gameName text, thumbnail text, minPlayers integer, maxPlayers integer, meanTime integer, notation double, age integer, difficulty text, yearOfPublication text," +
+                "  constraint fk_category foreign key (categoryId) references " + TABLE_CATEGORY + "(categoryId) ON DELETE CASCADE)";
+        String category = "create table if not exists " + TABLE_CATEGORY +
+                " (categoryId integer primary key, categoryName text)";
+        //TODO: voir si on enlève parce que casse couille
+        String played = "create table if not exists " + TABLE_PLAYED +
+                " (score real, numberOfGamesPlayed integer, " +
+                " constraint fk_user foreign key (userId) references " + TABLE_USER + "(userId)," +
+                " constraint fk_game foreign key (gameId) references " + TABLE_GAMES + "(gameId))";
+        String library = "create table if not exists " + TABLE_LIBRARY +
+                " (libraryId integer primary key autoincrement, " +
+                " constraint fk_user foreign key (userId) references " + TABLE_USER + "(userId) ON DELETE CASCADE," +
+                " constraint fk_game foreign key (gameId) references " + TABLE_GAMES + "(gameId) ON DELETE CASCADE)";
 
+        db.execSQL(user);
+        db.execSQL(category);
+        db.execSQL(game);
+        db.execSQL(played);
+        db.execSQL(library);
     }
 
     /**
@@ -79,10 +97,11 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO: modifier et add toutes les tables
-        String sql = "DROP TABLE IF EXISTS " + TABLE_LIBRARY;
+        String dropLibrary = "DROP TABLE IF EXISTS " + TABLE_LIBRARY;
+        String dropPlayed = "DROP TABLE IF EXISTS " + TABLE_PLAYED;
         DB_VERSION = newVersion;
-        db.execSQL(sql);
+        db.execSQL(dropPlayed);
+        db.execSQL(dropLibrary);
         onCreate(db);
     }
 }
