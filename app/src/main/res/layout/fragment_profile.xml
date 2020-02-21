@@ -1,8 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/nomUtilisateur"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NomUtilisateur"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/labelDateNaissance"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labelDateNaissance"
+                android:layout_width="167dp"
+                android:layout_height="25dp"
+                android:text="Date de Naissance :"
+                android:textSize="14sp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="170dp" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="15dp" />
+
+        <TextView
+            android:id="@+id/lblStat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Statistiques : "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="15dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutComplexite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblComplexite"
+                android:layout_width="216dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Complexité moyenne des jeux :" />
+
+            <TextView
+                android:id="@+id/textViewComplexite"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="4.5/5" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="15dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutCategorie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblCategorie"
+                android:layout_width="181dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Catégorie la plus jouée :" />
+
+            <TextView
+                android:id="@+id/textViewCategorie"
+                android:layout_width="7dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="ExCatégorie" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="15dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutPartie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblPartie"
+                android:layout_width="247dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Nombre total de partie jouées ;" />
+
+            <TextView
+                android:id="@+id/textViewPartie"
+                android:layout_width="117dp"
+                android:layout_height="match_parent"
+                android:text="Nombre" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="1dp"
+            android:layout_height="60dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutBouton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/buttonRecommandation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="obtenir recommandation jeux"
+                tools:layout_editor_absoluteX="282dp"
+                tools:layout_editor_absoluteY="516dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text_notifications"
@@ -16,4 +197,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
