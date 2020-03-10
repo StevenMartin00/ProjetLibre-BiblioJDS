@@ -30,10 +30,10 @@ public class BibliothequeFragment extends Fragment
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         //ListView list = root.findViewById(R.id.list);
         games = new ArrayList<>();
-        games.add(new Game("Gloomhaven", R.drawable.gloomhaven));
-        games.add(new Game("Pandemic Legacy Saison 1", R.drawable.pandemic_legacy_s1));
-        games.add(new Game("Terraforming Mars", R.drawable.terraforming_mars));
-        games.add(new Game("ISSOUUUUUUUUUUUUUU", R.drawable.issou));
+        games.add(new Game("Gloomhaven", String.valueOf(R.drawable.gloomhaven)));
+        games.add(new Game("Pandemic Legacy Saison 1", String.valueOf(R.drawable.pandemic_legacy_s1)));
+        games.add(new Game("Terraforming Mars", String.valueOf(R.drawable.terraforming_mars)));
+        games.add(new Game("ISSOUUUUUUUUUUUUUU", String.valueOf(R.drawable.issou)));
         /*CustomAdapter customAdapter = new CustomAdapter(this.getActivity(), games);
         list.setAdapter(customAdapter);*/
 

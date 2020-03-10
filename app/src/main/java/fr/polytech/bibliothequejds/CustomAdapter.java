@@ -52,7 +52,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
         //BIND DATA
         holder.getTitle().setText(games.get(position).getGameName());
-        Bitmap bm = BitmapFactory.decodeResource(c.getResources(), games.get(position).getThumbnailId());
+        Bitmap bm = BitmapFactory.decodeResource(c.getResources(), Integer.parseInt(games.get(position).getThumbnail()));
         holder.getImage().setImageBitmap(Bitmap.createScaledBitmap(bm, 400, 300, false));
 
         //ITEM CLICK

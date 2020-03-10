@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.polytech.bibliothequejds.model.EncryptionUtils;
+import fr.polytech.bibliothequejds.model.User;
+
+import static fr.polytech.bibliothequejds.model.database.DBHelper.TABLE_USER;
+
 /**
  * Class used to manage the database
  */
@@ -21,7 +26,7 @@ public class DBManager {
 	/**
 	 * The database.
 	 */
-	private SQLiteDatabase db;
+	protected SQLiteDatabase db;
 	
 	/**
 	 * DBManager sole builder.
@@ -29,13 +34,14 @@ public class DBManager {
 	 * @param context the context for database helper generation
 	 */
 	public DBManager(Context context ) {
-		helper = new DBHelper( context );
-		db = helper.getWritableDatabase();
-		helper.onCreate( db );
-		
-		//checkDataBase();
+		if(helper == null)
+		{
+			helper = new DBHelper(context);
+			db = helper.getWritableDatabase();
+			helper.onCreate(db);
+		}
 	}
-	
+
 	/**
 	 * Close the dataBase.
 	 */
@@ -44,56 +50,9 @@ public class DBManager {
 	}
 	
 
-	/*public boolean add(Record record) {
 
-		boolean isAdded;
-		db.beginTransaction();
-		try
-		{
-			// Create a new map of values, where column names are the keys
-			ContentValues values = new ContentValues();
-			values.put("Name", record.getName());
-			values.put("Path", record.getPath());
-			values.put("Jitter", record.getJitter());
-			values.put("Shimmer", record.getShimmer());
-			values.put("F0", record.getF0());
 
-			db.insertOrThrow(TABLE_NAME, null, values);
-			db.setTransactionSuccessful();
-			isAdded = true;
-		}
-		catch(Exception e)
-		{
-			isAdded = false;
-		}
-		finally
-		{
-			db.endTransaction();
-		}
-		return isAdded;
-	}*/
-	
 
-	/*public boolean deleteByName( String name )
-	{
-		boolean isDeleted;
-		db.beginTransaction();
-		try
-		{
-			db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE Name like '" + name + "'");
-			db.setTransactionSuccessful();
-			isDeleted = true;
-		}
-		catch(Exception e)
-		{
-			isDeleted = false;
-		}
-		finally
-		{
-			db.endTransaction();
-		}
-		return isDeleted;
-	}*/
 
 
 	/*
@@ -115,19 +74,7 @@ public class DBManager {
 
 
 	/*
-	public Record getRecord(String name)
-	{
-		Cursor cursor = db.rawQuery("SELECT * FROM Voices WHERE Name like ?", new String[]{name});
-		cursor.moveToNext();
-		Record record = new Record();
-		record.setName(cursor.getString(cursor.getColumnIndex("Name")));
-		record.setPath(cursor.getString(cursor.getColumnIndex("Path")));
-		record.setJitter(cursor.getDouble(cursor.getColumnIndex("Jitter")));
-		record.setShimmer(cursor.getDouble(cursor.getColumnIndex("Shimmer")));
-		record.setF0(cursor.getDouble(cursor.getColumnIndex("F0")));
-		cursor.close();
-		return record;
-	}*/
+	*/
 
 	/*
 	public boolean updateRecordVoiceFeatures(String name, double jitter, double shimmer, double f0)
