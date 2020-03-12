@@ -65,21 +65,22 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db)
     {
         String user = "create table if not exists " + TABLE_USER +
-                " (userId integer primary key, username text, password text, birthDate text, created_at DATETIME default current_timestamp )";
-        String game = "create table if not exists " + TABLE_GAMES +
-                " (gameId integer primary key, gameName text, thumbnail text, minPlayers integer, maxPlayers integer, meanTime integer, notation double, age integer, difficulty text, yearOfPublication text," +
-                "  constraint fk_category foreign key (categoryId) references " + TABLE_CATEGORY + "(categoryId) ON DELETE CASCADE)";
+                " (userId integer primary key autoincrement, username text, password text, birthDate text, created_at DATETIME default current_timestamp )";
         String category = "create table if not exists " + TABLE_CATEGORY +
-                " (categoryId integer primary key, categoryName text)";
+                " (categoryName text primary key)";
+        String game = "create table if not exists " + TABLE_GAMES +
+                " (gameId integer primary key autoincrement, gameName text, thumbnail text, minPlayers integer, maxPlayers integer, meanTime integer, notation double, age integer, difficulty text, yearOfPublication text, categoryName text, " +
+                "  constraint fk_category foreign key (categoryName) references " + TABLE_CATEGORY + " (categoryName))";
+
         //TODO: voir si on enlève parce que casse couille
         String played = "create table if not exists " + TABLE_PLAYED +
-                " (score real, numberOfGamesPlayed integer, " +
-                " constraint fk_user foreign key (userId) references " + TABLE_USER + "(userId)," +
-                " constraint fk_game foreign key (gameId) references " + TABLE_GAMES + "(gameId))";
+                " (score real, numberOfGamesPlayed integer, userId integer, gameId integer, " +
+                " constraint fk_user foreign key (userId) references " + TABLE_USER + " (userId)," +
+                " constraint fk_game foreign key (gameId) references " + TABLE_GAMES + " (gameId))";
+
         String library = "create table if not exists " + TABLE_LIBRARY +
-                " (libraryId integer primary key autoincrement, " +
-                " constraint fk_user foreign key (userId) references " + TABLE_USER + "(userId) ON DELETE CASCADE," +
-                " constraint fk_game foreign key (gameId) references " + TABLE_GAMES + "(gameId) ON DELETE CASCADE)";
+                " (libraryId integer primary key autoincrement, gameName text, userId integer, " +
+                " constraint fk_user foreign key (userId) references " + TABLE_USER + " (userId) ON DELETE CASCADE)";
 
         db.execSQL(user);
         db.execSQL(category);

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textviewRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/Inscription"
+        android:textColor="@android:color/secondary_text_light"
+        android:textSize="35dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/register_editText"
+        android:layout_width="350dp"
+        android:layout_height="46dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:focusable="true"
+        android:hint="@string/UsernameCreation"
+        android:textColorHighlight="@android:color/primary_text_dark"
+        android:textColorHint="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textviewUsername" />
+
+    <TextView
+        android:id="@+id/textviewUsername"
+        android:layout_width="350dp"
+        android:layout_height="25dp"
+        android:layout_above="@+id/register_editText"
+        android:layout_alignStart="@+id/register_editText"
+        android:layout_alignLeft="@+id/register_editText"
+        android:layout_alignEnd="@+id/register_editText"
+        android:layout_alignRight="@+id/register_editText"
+        android:layout_marginTop="30dp"
+        android:text=" Nom d'utilisateur"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/register_editText"
+        app:layout_constraintStart_toStartOf="@+id/register_editText"
+        app:layout_constraintTop_toBottomOf="@+id/textviewRegister" />
+
+    <ImageButton
+        android:id="@+id/birthDateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignEnd="@+id/register_confirmPassword_editText"
+        android:layout_alignRight="@+id/register_confirmPassword_editText"
+        android:layout_alignBottom="@+id/register_birthDate_editText"
+        android:src="@drawable/ic_date_range_black_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/register_confirmPassword_editText"
+        app:layout_constraintStart_toEndOf="@+id/register_birthDate_editText"
+        app:layout_constraintTop_toBottomOf="@+id/textviewBirthDate" />
+
+    <EditText
+        android:id="@+id/register_confirmPassword_editText"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_password_editText"
+        android:layout_alignStart="@+id/register_password_editText"
+        android:layout_alignLeft="@+id/register_password_editText"
+        android:layout_alignEnd="@+id/register_password_editText"
+        android:layout_alignRight="@+id/register_password_editText"
+        android:ems="10"
+        android:hint="@string/PasswordConfirmation"
+        android:inputType="textPassword"
+        android:textColorHint="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_password_editText" />
+
+    <EditText
+        android:id="@+id/register_password_editText"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/register_editText"
+        android:layout_alignLeft="@+id/register_editText"
+        android:layout_alignEnd="@+id/register_editText"
+        android:layout_alignRight="@+id/register_editText"
+        android:ems="10"
+        android:hint="@string/PasswordCreation"
+        android:inputType="textPassword"
+        android:textColorHint="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textviewPasswordAndConfirmation" />
+
+    <TextView
+        android:id="@+id/textviewPasswordAndConfirmation"
+        android:layout_width="347dp"
+        android:layout_height="25dp"
+        android:layout_above="@+id/register_password_editText"
+        android:layout_alignStart="@+id/register_password_editText"
+        android:layout_alignLeft="@+id/register_password_editText"
+        android:layout_alignEnd="@+id/register_password_editText"
+        android:layout_alignRight="@+id/register_password_editText"
+        android:layout_marginTop="15dp"
+        android:text="Mot de passe et confirmation : "
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/register_password_editText"
+        app:layout_constraintEnd_toEndOf="@+id/register_password_editText"
+        app:layout_constraintStart_toStartOf="@+id/register_password_editText"
+        app:layout_constraintTop_toBottomOf="@+id/register_editText" />
+
+    <EditText
+        android:id="@+id/register_birthDate_editText"
+        android:layout_width="278dp"
+        android:layout_height="67dp"
+        android:layout_alignStart="@+id/register_confirmPassword_editText"
+        android:layout_alignLeft="@+id/register_confirmPassword_editText"
+        android:layout_alignEnd="@+id/register_confirmPassword_editText"
+        android:layout_alignRight="@+id/register_confirmPassword_editText"
+        android:ems="10"
+        android:hint="@string/BirthDateCreation"
+        android:singleLine="false"
+        android:textColorHint="@color/grey"
+        app:layout_constraintStart_toStartOf="@+id/register_confirmPassword_editText"
+        app:layout_constraintTop_toBottomOf="@+id/textviewBirthDate" />
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="305dp"
+        android:layout_height="73dp"
+        android:layout_alignStart="@+id/textviewRegister"
+        android:layout_alignLeft="@+id/textviewRegister"
+        android:layout_alignEnd="@+id/textviewRegister"
+        android:layout_alignRight="@+id/textviewRegister"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="100dp"
+        android:text="@string/Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_birthDate_editText" />
+
+    <TextView
+        android:id="@+id/textviewBirthDate"
+        android:layout_width="350dp"
+        android:layout_height="29dp"
+        android:layout_above="@+id/register_birthDate_editText"
+        android:layout_alignStart="@+id/register_birthDate_editText"
+        android:layout_alignLeft="@+id/register_birthDate_editText"
+        android:layout_alignEnd="@+id/register_birthDate_editText"
+        android:layout_alignRight="@+id/register_birthDate_editText"
+        android:layout_marginTop="15dp"
+        android:text=" Date de naissance :"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/birthDateButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/register_birthDate_editText"
+        app:layout_constraintTop_toBottomOf="@+id/register_confirmPassword_editText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

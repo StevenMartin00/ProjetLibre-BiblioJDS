@@ -20,8 +20,7 @@ public class SearchFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
+        dashboardViewModel = ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_search, container, false);
         //TODO: mettre les trucs ici
         AppCompatTextView actionBarTitle = getActivity().findViewById(R.id.tvTitle);

@@ -2,8 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
     <color name="colorTitle">#14516B</color>
-    <color name="colorBackground">#FF112F49</color>
-    <color name="colorUnselectedFragment">#9BA2A5</color>
+    <color name="darkBlue">#FF112F49</color>
+    <color name="grey">#9BA2A5</color>
 </resources>

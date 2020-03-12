@@ -41,9 +41,9 @@ public class GameManager extends DBManager
             values.put("difficulty", game.getDifficulty());
             values.put("yearOfPublication", game.getYearOfPublication());
 
-            Cursor cursor = db.rawQuery("SELECT categoryId FROM " + TABLE_CATEGORY + " WHERE categoryName like ?", new String[]{game.getCategoryName()});
+            Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE categoryName like ?", new String[]{game.getCategoryName()});
             cursor.moveToNext();
-            values.put("categoryId", cursor.getInt(cursor.getColumnIndex("categoryId")));
+            values.put("categoryName", cursor.getString(cursor.getColumnIndex("categoryName")));
             cursor.close();
 
             db.insertOrThrow(TABLE_CATEGORY, null, values);
@@ -69,7 +69,7 @@ public class GameManager extends DBManager
         game.setGameName(cursor.getString(cursor.getColumnIndex("gameName")));
         game.setAge(cursor.getInt(cursor.getColumnIndex("age")));
 
-        Cursor categoryCursor = db.rawQuery("SELECT categoryName FROM " + TABLE_CATEGORY + " WHERE categoryId = ?", new String[]{String.valueOf(cursor.getInt(cursor.getColumnIndex("categoryId")))});
+        Cursor categoryCursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE categoryName = ?", new String[]{String.valueOf(cursor.getString(cursor.getColumnIndex("categoryName")))});
         categoryCursor.moveToNext();
         game.setCategoryName(categoryCursor.getString(categoryCursor.getColumnIndex("categoryName")));
 
@@ -124,7 +124,7 @@ public class GameManager extends DBManager
         game.setGameName(cursor.getString(cursor.getColumnIndex("gameName")));
         game.setAge(cursor.getInt(cursor.getColumnIndex("age")));
 
-        Cursor categoryCursor = db.rawQuery("SELECT categoryName FROM " + TABLE_CATEGORY + " WHERE categoryId = ?", new String[]{String.valueOf(cursor.getInt(cursor.getColumnIndex("categoryId")))});
+        Cursor categoryCursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE categoryName = ?", new String[]{String.valueOf(cursor.getString(cursor.getColumnIndex("categoryName")))});
         categoryCursor.moveToNext();
         game.setCategoryName(categoryCursor.getString(categoryCursor.getColumnIndex("categoryName")));
 

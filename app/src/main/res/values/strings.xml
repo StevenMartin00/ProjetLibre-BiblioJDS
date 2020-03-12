@@ -4,4 +4,11 @@
     <string name="title_search">Recherche</string>
     <string name="title_profile">Profil</string>
     <string name="titre">Bibliothèque</string>
+    <string name="UsernameCreation">Entrez votre nom d\'utilisateur</string>
+    <string name="PasswordCreation">Entrez votre mot de passe</string>
+    <string name="PasswordConfirmation">Confirmez votre mot de passe</string>
+    <string name="BirthDateCreation">Utilisez le calendrier pour entrer votre date de naissance</string>
+    <string name="Register">S\'inscrire</string>
+    <string name="Titre">Bibliothèque JDS</string>
+    <string name="Inscription">Inscription</string>
 </resources>

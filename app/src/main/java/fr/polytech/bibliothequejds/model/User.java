@@ -25,7 +25,7 @@ public class User
         this.password = password;
 
         Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("DD-MM-YYYY");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY");
 
         this.birthDate = birthDate;
         this.creationDate = dateFormat.format(currentTime);
