@@ -53,6 +53,7 @@
         android:layout_weight="1"
         android:text="Complexité moyenne des jeux :"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblStat" />
 
@@ -78,6 +79,7 @@
         android:layout_weight="1"
         android:text="Nombre total de partie jouées :"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblCategorie" />
 
@@ -105,6 +107,7 @@
         android:layout_weight="1"
         android:text="Catégorie la plus jouée :"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblComplexite" />
 
@@ -131,6 +134,7 @@
         android:text="Date de Naissance :"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nomUtilisateur" />
 

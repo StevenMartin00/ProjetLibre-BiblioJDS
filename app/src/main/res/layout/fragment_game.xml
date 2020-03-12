@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ABBBC9">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteY="81dp">
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="-36dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -19,6 +21,7 @@
             android:layout_marginTop="23dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/gloomhaven"
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
@@ -38,10 +41,11 @@
             <TextView
                 android:id="@+id/nomJeux"
                 android:layout_width="match_parent"
-                android:layout_height="69dp"
+                android:layout_height="92dp"
                 android:gravity="center"
                 android:text="NomJeux"
-                android:textSize="24sp"
+                android:textColor="#225C6E"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <Space
@@ -76,14 +80,15 @@
 
                 <TextView
                     android:id="@+id/lblNbJoueur"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nombre de Joueur :" />
+                    android:text="Nombre de Joueur :"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewNbJoueur"
-                    android:layout_width="118dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Nb" />
@@ -100,14 +105,15 @@
 
                 <TextView
                     android:id="@+id/lblDuree"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Durée moyenne d'une partie :" />
+                    android:text="Durée moyenne d'une partie :"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewDuree"
-                    android:layout_width="173dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Duree" />
@@ -124,14 +130,15 @@
 
                 <TextView
                     android:id="@+id/lblAge"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Age conseillé :" />
+                    android:text="Age conseillé :"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewAge"
-                    android:layout_width="74dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Age" />
@@ -148,14 +155,15 @@
 
                 <TextView
                     android:id="@+id/lblComplexite"
-                    android:layout_width="112dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Complexité :" />
+                    android:text="Complexité :"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewComplexite"
-                    android:layout_width="93dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Cplx/5" />
@@ -172,14 +180,15 @@
 
                 <TextView
                     android:id="@+id/lblCategorie"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Catégorie(s) :" />
+                    android:text="Catégorie(s) :"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textViewCategorie"
-                    android:layout_width="71dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Categorie1, Categorie2" />
@@ -196,21 +205,24 @@
 
                 <TextView
                     android:id="@+id/lblNbPartie"
-                    android:layout_width="148dp"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nombre de parties :" />
+                    android:text="Nombre de parties :"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/buttonRemove"
-                    android:layout_width="4dp"
+                    android:layout_width="10dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="-" />
+                    android:background="#225C6E"
+                    android:text="-"
+                    android:textColor="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/textViewNbPartie"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -218,12 +230,18 @@
 
                 <Button
                     android:id="@+id/buttonAdd"
-                    android:layout_width="4dp"
+                    android:layout_width="10dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="+" />
+                    android:background="#225C6E"
+                    android:text="+"
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -240,7 +258,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Ajouter Jeu Bibliothèque" />
+                    android:background="#225C6E"
+                    android:text="Ajouter Jeu Bibliothèque"
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
 
@@ -254,7 +274,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Retirer Jeu bibliothèque" />
+                    android:background="#225C6E"
+                    android:text="Retirer Jeu bibliothèque"
+                    android:textColor="#FFFFFF" />
 
                 <Space
                     android:layout_width="10dp"
@@ -273,7 +295,7 @@
             android:layout_marginLeft="164dp"
             android:layout_marginBottom="132dp"
             android:autoText="false"
-            android:background="@color/colorPrimaryDark"
+            android:background="#225C6E"
             android:gravity="center"
             android:text="8.5"
             android:textColor="#FFFFFF"

@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -24,6 +26,30 @@ public class SearchFragment extends Fragment {
         //TODO: mettre les trucs ici
         AppCompatTextView actionBarTitle = getActivity().findViewById(R.id.tvTitle);
         actionBarTitle.setText(R.string.title_search);
+
+        TextView lblUp = root.findViewById(R.id.lblTextUp);
+        TextView lblDown = root.findViewById(R.id.lblTextDown);
+        final ConstraintLayout open = root.findViewById(R.id.layoutFiltreOpen);
+        final ConstraintLayout close = root.findViewById(R.id.layoutFiltreClose);
+        open.setVisibility(View.GONE);
+
+        lblUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View root) {
+                open.setVisibility(View.GONE);
+                close.setVisibility(View.VISIBLE);
+            }
+        });
+
+        lblDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View root) {
+                open.setVisibility(View.VISIBLE);
+                close.setVisibility(View.GONE);
+            }
+        });
+
+
         return root;
     }
 }

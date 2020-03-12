@@ -1,27 +1,19 @@
 package fr.polytech.bibliothequejds;
 
 import android.content.Context;
-import android.database.DataSetObserver;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
 
 import fr.polytech.bibliothequejds.model.Game;
 import fr.polytech.bibliothequejds.ui.CustomViewHolder;
@@ -48,7 +40,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(CustomViewHolder holder, final int position) {
 
         //BIND DATA
         holder.getTitle().setText(games.get(position).getGameName());
@@ -59,7 +51,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(int pos) {
-                Toast.makeText(c, games.get(pos).getGameName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(c, games.get(pos).getGameName(), Toast.LENGTH_SHORT).show();
+
+                //Affichage vue
+                Intent myIntent = new Intent(c, GameActivity.class);
+                myIntent.putExtra("game", games.get(pos).getGameName());
+                //myIntent.putExtra("category", games.get(pos).getCategoryName());
+
+                myIntent.putExtra("src","bibli");
+                c.startActivity(myIntent); //View Game
             }
         });
 
