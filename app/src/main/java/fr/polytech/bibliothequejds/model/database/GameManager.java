@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.polytech.bibliothequejds.model.Category;
 import fr.polytech.bibliothequejds.model.Game;
 
@@ -46,7 +49,7 @@ public class GameManager extends DBManager
             values.put("categoryName", cursor.getString(cursor.getColumnIndex("categoryName")));
             cursor.close();
 
-            db.insertOrThrow(TABLE_CATEGORY, null, values);
+            db.insertOrThrow(TABLE_GAMES, null, values);
             db.setTransactionSuccessful();
             isAdded = true;
         }
@@ -73,17 +76,46 @@ public class GameManager extends DBManager
         categoryCursor.moveToNext();
         game.setCategoryName(categoryCursor.getString(categoryCursor.getColumnIndex("categoryName")));
 
-        game.setDifficulty(cursor.getString(cursor.getColumnIndex("difficulty")));
+        game.setDifficulty(cursor.getFloat(cursor.getColumnIndex("difficulty")));
         game.setMaxPlayers(cursor.getInt(cursor.getColumnIndex("maxPlayers")));
         game.setMinPlayers(cursor.getInt(cursor.getColumnIndex("minPlayers")));
         game.setMeanTime(cursor.getInt(cursor.getColumnIndex("meanTime")));
-        game.setNotation(cursor.getDouble(cursor.getColumnIndex("notation")));
+        game.setNotation(cursor.getFloat(cursor.getColumnIndex("notation")));
         game.setThumbnail(cursor.getString(cursor.getColumnIndex("thumbnail")));
         game.setYearOfPublication(cursor.getString(cursor.getColumnIndex("yearOfPublication")));
 
         categoryCursor.close();
         cursor.close();
         return game;
+    }
+
+    public List<Game> getAllGames()
+    {
+        List<Game> games = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_GAMES, null);
+        while(cursor.moveToNext())
+        {
+            Game game = new Game();
+            game.setGameName(cursor.getString(cursor.getColumnIndex("gameName")));
+            game.setAge(cursor.getInt(cursor.getColumnIndex("age")));
+
+            Cursor categoryCursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE categoryName = ?", new String[]{String.valueOf(cursor.getString(cursor.getColumnIndex("categoryName")))});
+            categoryCursor.moveToNext();
+            game.setCategoryName(categoryCursor.getString(categoryCursor.getColumnIndex("categoryName")));
+            categoryCursor.close();
+
+            game.setDifficulty(cursor.getFloat(cursor.getColumnIndex("difficulty")));
+            game.setMaxPlayers(cursor.getInt(cursor.getColumnIndex("maxPlayers")));
+            game.setMinPlayers(cursor.getInt(cursor.getColumnIndex("minPlayers")));
+            game.setMeanTime(cursor.getInt(cursor.getColumnIndex("meanTime")));
+            game.setNotation(cursor.getFloat(cursor.getColumnIndex("notation")));
+            game.setThumbnail(cursor.getString(cursor.getColumnIndex("thumbnail")));
+            game.setYearOfPublication(cursor.getString(cursor.getColumnIndex("yearOfPublication")));
+
+            games.add(game);
+        }
+        cursor.close();
+        return games;
     }
 
     public boolean deleteGame(String gameNameParam)
@@ -128,11 +160,11 @@ public class GameManager extends DBManager
         categoryCursor.moveToNext();
         game.setCategoryName(categoryCursor.getString(categoryCursor.getColumnIndex("categoryName")));
 
-        game.setDifficulty(cursor.getString(cursor.getColumnIndex("difficulty")));
+        game.setDifficulty(cursor.getFloat(cursor.getColumnIndex("difficulty")));
         game.setMaxPlayers(cursor.getInt(cursor.getColumnIndex("maxPlayers")));
         game.setMinPlayers(cursor.getInt(cursor.getColumnIndex("minPlayers")));
         game.setMeanTime(cursor.getInt(cursor.getColumnIndex("meanTime")));
-        game.setNotation(cursor.getDouble(cursor.getColumnIndex("notation")));
+        game.setNotation(cursor.getFloat(cursor.getColumnIndex("notation")));
         game.setThumbnail(cursor.getString(cursor.getColumnIndex("thumbnail")));
         game.setYearOfPublication(cursor.getString(cursor.getColumnIndex("yearOfPublication")));
 

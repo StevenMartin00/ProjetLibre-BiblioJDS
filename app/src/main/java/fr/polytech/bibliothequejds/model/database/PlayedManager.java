@@ -5,8 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import fr.polytech.bibliothequejds.model.Category;
 import fr.polytech.bibliothequejds.model.EncryptionUtils;
 import fr.polytech.bibliothequejds.model.Game;
 import fr.polytech.bibliothequejds.model.Played;
@@ -98,5 +102,39 @@ public class PlayedManager extends DBManager
         }
         cursor.close();
         return gamePlayers;
+    }
+
+    public String getMostCommonCategory(List<Game> games)
+    {
+        Map<String, Integer> map = new HashMap<>();
+        for(Game game : games)
+        {
+            for(String category : game.getCategoryName().split(","))
+            {
+                Integer value = map.get(category);
+                map.put(category, value == null ? 1 : value + 1);
+            }
+        }
+
+        Map.Entry<String, Integer> mostCommon = null;
+
+        for(Map.Entry<String, Integer> entry : map.entrySet())
+        {
+            if(mostCommon == null || entry.getValue() > mostCommon.getValue())
+                mostCommon = entry;
+        }
+
+        return mostCommon != null ? mostCommon.getKey() : null;
+    }
+
+    public int getNumberOfGamesPlayedByUsernameAndByGame(String username, String gameName)
+    {
+        int numberOfGamesPlayed = 0;
+        Cursor cursor = db.rawQuery("SELECT numberOfGamesPlayed FROM " + TABLE_PLAYED + " WHERE userId = ? AND gameId = ?", new String[]{String.valueOf(userManager.getUserId(username)), String.valueOf(gameManager.getGameId(gameName))});
+        if(cursor.moveToNext())
+        {
+            numberOfGamesPlayed = cursor.getInt(cursor.getColumnIndex("numberOfGamesPlayed"));
+        }
+        return numberOfGamesPlayed;
     }
 }

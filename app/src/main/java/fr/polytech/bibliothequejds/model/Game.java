@@ -7,9 +7,9 @@ public class Game
     private int minPlayers;
     private int maxPlayers;
     private int meanTime;
-    private double notation;
+    private float notation;
     private int age;
-    private String difficulty;
+    private float difficulty;
     private String yearOfPublication;
     private String categoryName;
 
@@ -20,9 +20,9 @@ public class Game
         this.minPlayers = 0;
         this.maxPlayers = 0;
         this.meanTime = 0;
-        this.notation = 0d;
+        this.notation = 0f;
         this.age = 0;
-        this.difficulty = "";
+        this.difficulty = 0f;
         this.yearOfPublication = "";
         this.categoryName = "";
     }
@@ -34,14 +34,14 @@ public class Game
         this.minPlayers = 0;
         this.maxPlayers = 0;
         this.meanTime = 0;
-        this.notation = 0d;
+        this.notation = 0f;
         this.age = 0;
-        this.difficulty = "";
+        this.difficulty = 0f;
         this.yearOfPublication = "";
         this.categoryName = "";
     }
 
-    public Game(String gameName, String thumbnail, int minPlayers, int maxPlayers, int meanTime, double notation, int age, String difficulty, String yearOfPublication, String categoryName)
+    public Game(String gameName, String thumbnail, int minPlayers, int maxPlayers, int meanTime, float notation, int age, float difficulty, String yearOfPublication, String categoryName)
     {
         this.gameName = gameName;
         this.thumbnail = thumbnail;
@@ -87,11 +87,11 @@ public class Game
         this.meanTime = meanTime;
     }
 
-    public double getNotation() {
+    public float getNotation() {
         return notation;
     }
 
-    public void setNotation(double notation) {
+    public void setNotation(float notation) {
         this.notation = notation;
     }
 
@@ -103,11 +103,11 @@ public class Game
         this.age = age;
     }
 
-    public String getDifficulty() {
+    public float getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
+    public void setDifficulty(float difficulty) {
         this.difficulty = difficulty;
     }
 

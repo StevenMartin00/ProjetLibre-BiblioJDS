@@ -69,10 +69,9 @@ public class DBHelper extends SQLiteOpenHelper {
         String category = "create table if not exists " + TABLE_CATEGORY +
                 " (categoryName text primary key)";
         String game = "create table if not exists " + TABLE_GAMES +
-                " (gameId integer primary key autoincrement, gameName text, thumbnail text, minPlayers integer, maxPlayers integer, meanTime integer, notation double, age integer, difficulty text, yearOfPublication text, categoryName text, " +
+                " (gameId integer primary key autoincrement, gameName text, thumbnail text, minPlayers integer, maxPlayers integer, meanTime integer, notation real, age integer, difficulty real, yearOfPublication text, categoryName text, " +
                 "  constraint fk_category foreign key (categoryName) references " + TABLE_CATEGORY + " (categoryName))";
 
-        //TODO: voir si on enlève parce que casse couille
         String played = "create table if not exists " + TABLE_PLAYED +
                 " (score real, numberOfGamesPlayed integer, userId integer, gameId integer, " +
                 " constraint fk_user foreign key (userId) references " + TABLE_USER + " (userId)," +

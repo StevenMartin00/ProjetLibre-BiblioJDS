@@ -1,9 +1,12 @@
 package fr.polytech.bibliothequejds.ui.bibliotheque;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,30 +17,49 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.polytech.bibliothequejds.CustomAdapter;
 import fr.polytech.bibliothequejds.R;
 import fr.polytech.bibliothequejds.model.Game;
+import fr.polytech.bibliothequejds.model.database.CategoryManager;
+import fr.polytech.bibliothequejds.model.database.GameManager;
+import fr.polytech.bibliothequejds.utils.JsonParserTask;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class BibliothequeFragment extends Fragment
 {
-    private ArrayList<Game> games;
+    private List<Game> games;
+    private ProgressBar pbLoadingGames;
+    private TextView tvLoadingGames;
+    private GameManager gameManager;
+    private CategoryManager categoryManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         //ListView list = root.findViewById(R.id.list);
-        games = new ArrayList<>();
-        games.add(new Game("Gloomhaven", String.valueOf(R.drawable.gloomhaven)));
+
+        /*games.add(new Game("Gloomhaven", String.valueOf(R.drawable.gloomhaven)));
         games.add(new Game("Pandemic Legacy Saison 1", String.valueOf(R.drawable.pandemic_legacy_s1)));
         games.add(new Game("Terraforming Mars", String.valueOf(R.drawable.terraforming_mars)));
-        games.add(new Game("ISSOUUUUUUUUUUUUUU", String.valueOf(R.drawable.issou)));
-        /*CustomAdapter customAdapter = new CustomAdapter(this.getActivity(), games);
-        list.setAdapter(customAdapter);*/
+        games.add(new Game("ISSOUUUUUUUUUUUUUU", String.valueOf(R.drawable.issou)));*/
+
 
         AppCompatTextView actionBarTitle = getActivity().findViewById(R.id.tvTitle);
         actionBarTitle.setText(R.string.title_home);
+
+        pbLoadingGames = root.findViewById(R.id.pbLoadingGames);
+        pbLoadingGames.setVisibility(View.GONE);
+        tvLoadingGames = root.findViewById(R.id.tvLoadingGames);
+        tvLoadingGames.setVisibility(View.GONE);
+        gameManager = new GameManager(this.getActivity().getApplicationContext());
+        categoryManager = new CategoryManager(this.getActivity().getApplicationContext());
+
+        games = gameManager.getAllGames();
+
         return root;      //Sets the view for the fragment
     }
 
@@ -54,5 +76,18 @@ public class BibliothequeFragment extends Fragment
         //Adapter
         CustomAdapter adapter = new CustomAdapter(this.getActivity(), games);
         rv.setAdapter(adapter);
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        boolean firstRun = sharedPreferences.getBoolean("firstRun", true);
+        
+        if(firstRun)
+        {
+            //Get the list of games in Json from boardgameatlas
+            new JsonParserTask(this.getActivity(), gameManager, categoryManager).execute();
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("firstRun", false);
+            editor.apply();
+        }
     }
 }

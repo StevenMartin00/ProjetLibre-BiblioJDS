@@ -11,4 +11,5 @@
     <string name="Register">S\'inscrire</string>
     <string name="Titre">Bibliothèque JDS</string>
     <string name="Inscription">Inscription</string>
+    <string name="loading_games">Chargement des jeux... Veuillez patienter....</string>
 </resources>

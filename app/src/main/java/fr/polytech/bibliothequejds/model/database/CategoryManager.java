@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.polytech.bibliothequejds.model.Category;
 
 import static fr.polytech.bibliothequejds.model.database.DBHelper.TABLE_CATEGORY;
@@ -50,9 +53,21 @@ public class CategoryManager extends DBManager
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY + " WHERE categoryName like ?", new String[]{categoryNameParam});
         cursor.moveToNext();
         Category category = new Category();
-        category.setCategoryName(cursor.getString(cursor.getColumnIndex("username")));
+        category.setCategoryName(cursor.getString(cursor.getColumnIndex("categoryName")));
         cursor.close();
         return category;
+    }
+
+    public List<Category> getAllCategories()
+    {
+        List<Category> categoryList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CATEGORY, null);
+        while(cursor.moveToNext())
+        {
+            categoryList.add(new Category(cursor.getString(cursor.getColumnIndex("categoryName"))));
+        }
+        cursor.close();
+        return categoryList;
     }
 
     public boolean deleteCategory(String categoryNameParam)

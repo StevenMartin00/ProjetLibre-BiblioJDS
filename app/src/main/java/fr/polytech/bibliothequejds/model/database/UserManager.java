@@ -51,14 +51,18 @@ public class UserManager extends DBManager
     public User getUser(String usernameParam)
     {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USER + " WHERE username like ?", new String[]{usernameParam});
-        cursor.moveToNext();
-        User user = new User();
-        user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
-        user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
-        user.setBirthDate(cursor.getString(cursor.getColumnIndex("birthDate")));
-        user.setCreationDate(cursor.getString(cursor.getColumnIndex("created_at")));
+        if(cursor.moveToNext())
+        {
+            User user = new User();
+            user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+            user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
+            user.setBirthDate(cursor.getString(cursor.getColumnIndex("birthDate")));
+            user.setCreationDate(cursor.getString(cursor.getColumnIndex("created_at")));
+            cursor.close();
+            return user;
+        }
         cursor.close();
-        return user;
+        return null;
     }
 
     public boolean deleteUserByUsername(String usernameParam)
@@ -85,22 +89,28 @@ public class UserManager extends DBManager
     public int getUserId(String usernameParam)
     {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USER + " WHERE username like ?", new String[]{usernameParam});
-        cursor.moveToNext();
-        int userId = cursor.getInt(cursor.getColumnIndex("userId"));
+        if(cursor.moveToNext()) {
+            int userId = cursor.getInt(cursor.getColumnIndex("userId"));
+            cursor.close();
+            return userId;
+        }
         cursor.close();
-        return userId;
+        return 0;
     }
 
     public User getUserById(int userId)
     {
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USER + " WHERE userId = ?", new String[]{String.valueOf(userId)});
-        cursor.moveToNext();
-        User user = new User();
-        user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
-        user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
-        user.setBirthDate(cursor.getString(cursor.getColumnIndex("birthDate")));
-        user.setCreationDate(cursor.getString(cursor.getColumnIndex("created_at")));
-        cursor.close();
-        return user;
+        if(cursor.moveToNext())
+        {
+            User user = new User();
+            user.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+            user.setPassword(cursor.getString(cursor.getColumnIndex("password")));
+            user.setBirthDate(cursor.getString(cursor.getColumnIndex("birthDate")));
+            user.setCreationDate(cursor.getString(cursor.getColumnIndex("created_at")));
+            cursor.close();
+            return user;
+        }
+        return null;
     }
 }

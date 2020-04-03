@@ -13,10 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import fr.polytech.bibliothequejds.R;
+import fr.polytech.bibliothequejds.model.Category;
+import fr.polytech.bibliothequejds.model.Game;
+import fr.polytech.bibliothequejds.model.database.CategoryManager;
+import fr.polytech.bibliothequejds.model.database.GameManager;
 
 public class SearchFragment extends Fragment {
 
     private DashboardViewModel dashboardViewModel;
+    private GameManager gameManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +53,18 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        //TESTING JSON PARSING -> OK
+        gameManager = new GameManager(this.getActivity().getApplicationContext());
+        CategoryManager categoryManager = new CategoryManager(this.getActivity().getApplicationContext());
+        for(Game game : gameManager.getAllGames())
+        {
+            System.out.println(game.getGameName());
+        }
 
+        for(Category category : categoryManager.getAllCategories())
+        {
+            System.out.println(category.getCategoryName());
+        }
         return root;
     }
 }

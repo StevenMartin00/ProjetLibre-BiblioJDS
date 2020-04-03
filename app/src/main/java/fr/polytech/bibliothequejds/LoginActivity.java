@@ -5,18 +5,34 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+
+import fr.polytech.bibliothequejds.model.EncryptionUtils;
+import fr.polytech.bibliothequejds.model.User;
+import fr.polytech.bibliothequejds.model.database.UserManager;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private UserManager userManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
-
+        userManager = new UserManager(this.getApplicationContext());
         Button loginButton = findViewById(R.id.login_button);
         final EditText loginEditText = findViewById(R.id.login_editText);
         final EditText passwordEditText = findViewById(R.id.password_editText);
@@ -25,14 +41,33 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(loginEditText.getText().toString().equals("admin") && passwordEditText.getText().toString().equals("admin"))
+                User loginUser = userManager.getUser(loginEditText.getText().toString());
+                if(loginUser != null)
                 {
-                    Toast.makeText(getApplicationContext(),"Redirecting to Lib Activity...",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, LibraryActivity.class));
+                    try
+                    {
+                        if(EncryptionUtils.decrypt(loginUser.getPassword()).equals(passwordEditText.getText().toString()))
+                        {
+                            Intent intent = new Intent(LoginActivity.this, LibraryActivity.class);
+                            intent.putExtra("classFrom", LoginActivity.class.toString());
+                            intent.putExtra("loggedInUsername", loginUser.getUsername());
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            passwordEditText.setError("Mot de passe invalide");
+                            passwordEditText.requestFocus();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
                 else
                 {
-                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                    loginEditText.setError("Nom d'utilisateur invalide");
+                    loginEditText.requestFocus();
                 }
             }
         });
@@ -40,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
         goToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Redirecting to RegistrActivity...",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });

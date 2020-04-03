@@ -1,6 +1,10 @@
 package fr.polytech.bibliothequejds;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,5 +33,15 @@ public class LibraryActivity extends AppCompatActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionBar.setCustomView(R.layout.abs_layout);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Bundle bundle = getIntent().getExtras();
+
+        if (!bundle.getString("classFrom").equals(LoginActivity.class.toString())) {
+            super.onBackPressed();
+        }
     }
 }
