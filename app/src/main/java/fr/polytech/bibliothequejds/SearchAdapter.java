@@ -3,21 +3,17 @@ package fr.polytech.bibliothequejds;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -29,15 +25,17 @@ import fr.polytech.bibliothequejds.utils.BitmapFromUrlTask;
 /**
  * Custom Adapter used to create a list view with a text view and an image view
  */
-public class SearchAdapter extends RecyclerView.Adapter<CustomViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<CustomViewHolder> implements Filterable {
 
     private Context c;
     private List<Game> games;
+    private List<Game> fullGameList;
 
     public SearchAdapter(Context c, List<Game> games) {
         super();
         this.c = c;
         this.games = games;
+        fullGameList = new ArrayList<>(games);
     }
 
     @Override
@@ -91,4 +89,42 @@ public class SearchAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     public int getItemCount() {
         return games.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Game> filteredGameList = new ArrayList<>();
+            if(constraint == null || constraint.length() == 0)
+            {
+                filteredGameList.addAll(fullGameList);
+            }
+            else
+            {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(Game game : fullGameList)
+                {
+                    if(game.getGameName().toLowerCase().contains(filterPattern))
+                    {
+                        filteredGameList.add(game);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredGameList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            games.clear();
+            games.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }
