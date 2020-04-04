@@ -1,26 +1,28 @@
 package fr.polytech.bibliothequejds;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
 
-import fr.polytech.bibliothequejds.R;
+import java.util.concurrent.ExecutionException;
+
+import fr.polytech.bibliothequejds.model.Played;
+import fr.polytech.bibliothequejds.model.database.GameManager;
+import fr.polytech.bibliothequejds.model.database.PlayedManager;
+import fr.polytech.bibliothequejds.utils.BitmapFromUrlTask;
 
 public class GameActivity extends AppCompatActivity {
-    private float x1,x2;
+    private float x1;
+    private float x2;
     static final int MIN_DISTANCE = 150;
 
     @Override
@@ -30,11 +32,26 @@ public class GameActivity extends AppCompatActivity {
 
         setContentView(R.layout.fragment_game);
 
+        //Initialisation du manager
+        final PlayedManager playedManager = new PlayedManager(this.getApplicationContext());
+
+        //Recuperation de l'utilisateur
+        final SharedPreferences sharedPreferences = this.getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        final String username = sharedPreferences.getString("userLoggedIn", "");
+
         //Recuperation de la source et du nom du jeu (depuis la liste)
         Intent intent = getIntent();
         String source = intent.getStringExtra("src");
-        final String nomJeu = intent.getStringExtra("game"); //if it's a string you stored.
-        //String categorie = intent.getStringExtra("category");
+        final String nomJeu = intent.getStringExtra("game");
+        String miniature = intent.getStringExtra("thumbnail");
+        int age = intent.getIntExtra("age", 0);
+        int minJoueurs = intent.getIntExtra("minPlayers", 0);
+        int maxJoueurs = intent.getIntExtra("maxPlayers", 0);
+        int tpsMoyen = intent.getIntExtra("meanTime", 0);
+        float note = intent.getFloatExtra("notation", 0f);
+        float difficulte = intent.getFloatExtra("difficulty", 0f);
+        String anneePublication = intent.getStringExtra("yearOfPublication");
+        String categorie = intent.getStringExtra("category");
 
 
         //Elements impactes par la source bibli/search
@@ -51,55 +68,49 @@ public class GameActivity extends AppCompatActivity {
 
         //Note
         TextView TVnote = findViewById(R.id.note);
-        TVnote.setText("9.5"); //TODO BDD
+        TVnote.setText(String.valueOf(note));
 
         //Image
         ImageView image = findViewById(R.id.imageView);
-            //FO PAS FER CA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! TODO
-        if (nomJeu.equals("Terraforming Mars")){
-            image.setImageResource(R.drawable.terraforming_mars);
+        Bitmap bitmap;
+        try {
+            bitmap = new BitmapFromUrlTask().execute(miniature).get();
+            image.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 300, 300, false));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        if (nomJeu.equals("Pandemic Legacy Saison 1")){
-            image.setImageResource(R.drawable.pandemic_legacy_s1);
-        }
-        if (nomJeu.equals("Gloomhaven")){
-            image.setImageResource(R.drawable.gloomhaven);
-        }
-        if (nomJeu.equals("ISSOUUUUUUUUUUUUUU")){
-            image.setImageResource(R.drawable.issou);
-        }
-
-        //TODO Ajouter l'image (je sais pas trop où elle est stockée)
 
         //Date
         TextView TVdate = findViewById(R.id.date);
-        TVdate.setText("11/03/2020"); //TODO BDD
+        TVdate.setText(anneePublication);
 
         //NbJoueur
         TextView TVnbJoueur = findViewById(R.id.textViewNbJoueur);
-        TVnbJoueur.setText("2 - 8"); //TODO BDD
+        TVnbJoueur.setText(minJoueurs + " - " + maxJoueurs);
 
         //Duree Partie
         TextView TVdureePartie = findViewById(R.id.textViewDuree);
-        TVdureePartie.setText("10" + " min"); //TODO BDD
+        TVdureePartie.setText(tpsMoyen + " min");
 
         //Age
         TextView TVage = findViewById(R.id.textViewAge);
-        TVage.setText("8 +" + " ans"); //TODO BDD
+        TVage.setText(age + "+ ans");
 
         //Complexite
         TextView TVcomplexite = findViewById(R.id.textViewComplexite);
-        TVcomplexite.setText("4.5" + " / 5" ); //TODO BDD
+        TVcomplexite.setText(difficulte + " / 5" );
 
         //Categorie
         TextView TVcategorie = findViewById(R.id.textViewCategorie);
-        TVcategorie.setText("Stratégie, Coopératif" ); //TODO BDD
+        TVcategorie.setText(categorie);
 
         //Nb Partie -- visible uniquement si jeu dans bibli
-        if (source.equals("bibli")){
-            TVpartie.setText("2" ); //TODO BDD
+        if (source.equals("bibli"))
+        {
+            TVpartie.setText(String.valueOf(playedManager.getNumberOfGamesPlayedByUsernameAndByGame(username, nomJeu)));
         }
-
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +119,7 @@ public class GameActivity extends AppCompatActivity {
                 int nbPartie = Integer.parseInt(TVpartie.getText().toString());
                 nbPartie = nbPartie + 1;
                 TVpartie.setText(String.valueOf(nbPartie));
-                //TODO add save BDD
+                playedManager.updateNumberOfGamesPlayed(username, nomJeu, nbPartie);
             }
         });
 
@@ -120,7 +131,7 @@ public class GameActivity extends AppCompatActivity {
                 nbPartie = nbPartie - 1;
                 if (nbPartie >= 0){
                     TVpartie.setText(String.valueOf(nbPartie));
-                    //TODO add save BDD
+                    playedManager.updateNumberOfGamesPlayed(username, nomJeu, nbPartie);
                 }
             }
         });
@@ -128,7 +139,7 @@ public class GameActivity extends AppCompatActivity {
         ajouter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View root) {
-                //TODO BDD
+                playedManager.addPlayed(username, nomJeu, 0, 0);
                 Toast.makeText(GameActivity.this , nomJeu + " a été ajouté à votre bibliothèque", Toast.LENGTH_SHORT).show();
             }
         });
@@ -136,7 +147,7 @@ public class GameActivity extends AppCompatActivity {
         retirer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View root) {
-                //TODO BDD
+                playedManager.deletePlayed(username, nomJeu);
                 Toast.makeText(GameActivity.this , nomJeu + " a été retiré de votre bibliothèque", Toast.LENGTH_SHORT).show();
             }
         });

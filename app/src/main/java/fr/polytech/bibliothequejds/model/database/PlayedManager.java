@@ -37,7 +37,7 @@ public class PlayedManager extends DBManager
         this.gameManager = new GameManager(context);
     }
 
-    public boolean addPlayed(Played played)
+    public boolean addPlayed(String username, String gameName, double score, int numberOfGamesPlayed)
     {
         boolean isAdded;
         this.db.beginTransaction();
@@ -45,15 +45,15 @@ public class PlayedManager extends DBManager
         {
             // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
-            values.put("score", played.getScore());
-            values.put("numberOfGamesPlayed", played.getNumberOfGamesPlayed() + 1);
+            values.put("score", score);
+            values.put("numberOfGamesPlayed", numberOfGamesPlayed + 1);
 
-            Cursor gameCursor = db.rawQuery("SELECT * FROM " + TABLE_GAMES + " WHERE gameName like ?", new String[]{played.getGamePlayed().getGameName()});
+            Cursor gameCursor = db.rawQuery("SELECT * FROM " + TABLE_GAMES + " WHERE gameName like ?", new String[]{gameName});
             gameCursor.moveToNext();
 
             values.put("gameId", gameCursor.getInt(gameCursor.getColumnIndex("gameId")));
 
-            Cursor userCursor = db.rawQuery("SELECT * FROM " + TABLE_USER + " WHERE username like ?", new String[]{played.getPlayer().getUsername()});
+            Cursor userCursor = db.rawQuery("SELECT * FROM " + TABLE_USER + " WHERE username like ?", new String[]{username});
             userCursor.moveToNext();
 
             values.put("userId", userCursor.getInt(userCursor.getColumnIndex("userId")));
@@ -61,7 +61,7 @@ public class PlayedManager extends DBManager
             gameCursor.close();
             userCursor.close();
 
-            db.insertOrThrow(TABLE_USER, null, values);
+            db.insertOrThrow(TABLE_PLAYED, null, values);
             db.setTransactionSuccessful();
             isAdded = true;
         }
@@ -136,5 +136,66 @@ public class PlayedManager extends DBManager
             numberOfGamesPlayed = cursor.getInt(cursor.getColumnIndex("numberOfGamesPlayed"));
         }
         return numberOfGamesPlayed;
+    }
+
+    public boolean updateNumberOfGamesPlayed(String username, String gameName, int numberOfGamesPlayed)
+    {
+        db.beginTransaction();
+        boolean isUpdated;
+        try
+        {
+            Cursor gameCursor = db.rawQuery("SELECT * FROM " + TABLE_GAMES + " WHERE gameName like ?", new String[]{gameName});
+            gameCursor.moveToNext();
+            int gameId = gameCursor.getInt(gameCursor.getColumnIndex("gameId"));
+
+            Cursor userCursor = db.rawQuery("SELECT * FROM " + TABLE_USER + " WHERE username like ?", new String[]{username});
+            userCursor.moveToNext();
+            int userId = userCursor.getInt(userCursor.getColumnIndex("userId"));
+
+            db.execSQL("UPDATE " + TABLE_PLAYED + " SET numberOfGamesPlayed = " + numberOfGamesPlayed + " WHERE gameId = " + gameId + " AND userId = " + userId);
+            db.setTransactionSuccessful();
+            isUpdated = true;
+
+            gameCursor.close();
+            userCursor.close();
+        }
+        catch(Exception e)
+        {
+            isUpdated = false;
+        }
+        finally
+        {
+            db.endTransaction();
+        }
+        return isUpdated;
+    }
+
+    public boolean deletePlayed(String username, String gameName)
+    {
+        boolean isDeleted;
+        db.beginTransaction();
+        try
+        {
+            Cursor gameCursor = db.rawQuery("SELECT * FROM " + TABLE_GAMES + " WHERE gameName like ?", new String[]{gameName});
+            gameCursor.moveToNext();
+            int gameId = gameCursor.getInt(gameCursor.getColumnIndex("gameId"));
+
+            Cursor userCursor = db.rawQuery("SELECT * FROM " + TABLE_USER + " WHERE username like ?", new String[]{username});
+            userCursor.moveToNext();
+            int userId = userCursor.getInt(userCursor.getColumnIndex("userId"));
+
+            db.execSQL("DELETE FROM " + TABLE_PLAYED + " WHERE gameId = " + gameId + " AND userId = " + userId);
+            db.setTransactionSuccessful();
+            isDeleted = true;
+        }
+        catch(Exception e)
+        {
+            isDeleted = false;
+        }
+        finally
+        {
+            db.endTransaction();
+        }
+        return isDeleted;
     }
 }

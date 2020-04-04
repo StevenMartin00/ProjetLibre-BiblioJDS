@@ -16,25 +16,27 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import fr.polytech.bibliothequejds.CustomAdapter;
+import fr.polytech.bibliothequejds.LibraryAdapter;
 import fr.polytech.bibliothequejds.R;
 import fr.polytech.bibliothequejds.model.Game;
+import fr.polytech.bibliothequejds.model.Played;
 import fr.polytech.bibliothequejds.model.database.CategoryManager;
 import fr.polytech.bibliothequejds.model.database.GameManager;
+import fr.polytech.bibliothequejds.model.database.PlayedManager;
 import fr.polytech.bibliothequejds.utils.JsonParserTask;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class BibliothequeFragment extends Fragment
 {
-    private List<Game> games;
+    private List<Game> gamesPlayed;
     private ProgressBar pbLoadingGames;
     private TextView tvLoadingGames;
     private GameManager gameManager;
     private CategoryManager categoryManager;
+    private PlayedManager playedManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -57,8 +59,10 @@ public class BibliothequeFragment extends Fragment
         tvLoadingGames.setVisibility(View.GONE);
         gameManager = new GameManager(this.getActivity().getApplicationContext());
         categoryManager = new CategoryManager(this.getActivity().getApplicationContext());
+        playedManager = new PlayedManager(this.getActivity().getApplicationContext());
 
-        games = gameManager.getAllGames();
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", MODE_PRIVATE);
+        gamesPlayed = playedManager.getGamesPlayedByUsername(sharedPreferences.getString("userLoggedIn", ""));
 
         return root;      //Sets the view for the fragment
     }
@@ -74,12 +78,12 @@ public class BibliothequeFragment extends Fragment
         dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.custom_divider));
         rv.addItemDecoration(dividerItemDecoration);
         //Adapter
-        CustomAdapter adapter = new CustomAdapter(this.getActivity(), games);
+        LibraryAdapter adapter = new LibraryAdapter(this.getActivity(), gamesPlayed);
         rv.setAdapter(adapter);
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         boolean firstRun = sharedPreferences.getBoolean("firstRun", true);
-        
+        firstRun = false;
         if(firstRun)
         {
             //Get the list of games in Json from boardgameatlas
