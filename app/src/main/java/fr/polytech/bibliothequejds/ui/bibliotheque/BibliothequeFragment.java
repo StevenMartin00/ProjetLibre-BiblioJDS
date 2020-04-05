@@ -21,7 +21,6 @@ import java.util.List;
 import fr.polytech.bibliothequejds.LibraryAdapter;
 import fr.polytech.bibliothequejds.R;
 import fr.polytech.bibliothequejds.model.Game;
-import fr.polytech.bibliothequejds.model.Played;
 import fr.polytech.bibliothequejds.model.database.CategoryManager;
 import fr.polytech.bibliothequejds.model.database.GameManager;
 import fr.polytech.bibliothequejds.model.database.PlayedManager;
@@ -42,13 +41,6 @@ public class BibliothequeFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        //ListView list = root.findViewById(R.id.list);
-
-        /*games.add(new Game("Gloomhaven", String.valueOf(R.drawable.gloomhaven)));
-        games.add(new Game("Pandemic Legacy Saison 1", String.valueOf(R.drawable.pandemic_legacy_s1)));
-        games.add(new Game("Terraforming Mars", String.valueOf(R.drawable.terraforming_mars)));
-        games.add(new Game("ISSOUUUUUUUUUUUUUU", String.valueOf(R.drawable.issou)));*/
-
 
         AppCompatTextView actionBarTitle = getActivity().findViewById(R.id.tvTitle);
         actionBarTitle.setText(R.string.title_home);
@@ -83,7 +75,7 @@ public class BibliothequeFragment extends Fragment
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         boolean firstRun = sharedPreferences.getBoolean("firstRun", true);
-        firstRun = false;
+
         if(firstRun)
         {
             //Get the list of games in Json from boardgameatlas

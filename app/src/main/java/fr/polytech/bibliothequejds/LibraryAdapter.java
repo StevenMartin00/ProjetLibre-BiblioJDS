@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import fr.polytech.bibliothequejds.model.Game;
-import fr.polytech.bibliothequejds.model.Played;
 import fr.polytech.bibliothequejds.ui.CustomViewHolder;
 import fr.polytech.bibliothequejds.ui.ItemClickListener;
 import fr.polytech.bibliothequejds.utils.BitmapFromUrlTask;

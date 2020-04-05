@@ -15,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.ExecutionException;
 
-import fr.polytech.bibliothequejds.model.Played;
-import fr.polytech.bibliothequejds.model.database.GameManager;
 import fr.polytech.bibliothequejds.model.database.PlayedManager;
 import fr.polytech.bibliothequejds.utils.BitmapFromUrlTask;
 
@@ -141,6 +139,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View root) {
                 playedManager.addPlayed(username, nomJeu, 0, 0);
                 Toast.makeText(GameActivity.this , nomJeu + " a été ajouté à votre bibliothèque", Toast.LENGTH_SHORT).show();
+
             }
         });
 

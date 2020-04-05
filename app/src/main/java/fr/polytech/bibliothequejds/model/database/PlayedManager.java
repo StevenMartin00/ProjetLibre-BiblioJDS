@@ -5,15 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.polytech.bibliothequejds.model.Category;
-import fr.polytech.bibliothequejds.model.EncryptionUtils;
 import fr.polytech.bibliothequejds.model.Game;
-import fr.polytech.bibliothequejds.model.Played;
 import fr.polytech.bibliothequejds.model.User;
 
 import static fr.polytech.bibliothequejds.model.database.DBHelper.TABLE_GAMES;
