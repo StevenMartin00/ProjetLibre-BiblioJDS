@@ -42,7 +42,7 @@ public class PlayedManager extends DBManager
             // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
             values.put("score", score);
-            values.put("numberOfGamesPlayed", numberOfGamesPlayed + 1);
+            values.put("numberOfGamesPlayed", numberOfGamesPlayed);
 
             Cursor gameCursor = db.rawQuery("SELECT * FROM " + TABLE_GAMES + " WHERE gameName like ?", new String[]{gameName});
             gameCursor.moveToNext();
