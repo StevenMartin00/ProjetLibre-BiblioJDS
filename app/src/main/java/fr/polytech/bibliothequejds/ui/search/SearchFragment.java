@@ -100,7 +100,7 @@ public class SearchFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", MODE_PRIVATE);
         boolean firstRun = sharedPreferences.getBoolean("firstRun", true);
-        firstRun = false;
+        
         if(firstRun)
         {
             //Get the list of games in Json from boardgameatlas
