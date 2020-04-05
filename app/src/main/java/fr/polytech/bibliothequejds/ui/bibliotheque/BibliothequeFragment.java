@@ -63,7 +63,7 @@ public class BibliothequeFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         //Set up recycler view
-        RecyclerView rv = getView().findViewById(R.id.rv);
+        RecyclerView rv = getView().findViewById(R.id.rv_library);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rv.getContext(), layoutManager.getOrientation());

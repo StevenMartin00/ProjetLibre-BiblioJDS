@@ -1,6 +1,5 @@
 package fr.polytech.bibliothequejds.ui.search;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,9 +28,6 @@ import fr.polytech.bibliothequejds.R;
 import fr.polytech.bibliothequejds.model.Game;
 import fr.polytech.bibliothequejds.model.database.CategoryManager;
 import fr.polytech.bibliothequejds.model.database.GameManager;
-import fr.polytech.bibliothequejds.utils.JsonParserTask;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class SearchFragment extends Fragment {
 
@@ -81,6 +77,7 @@ public class SearchFragment extends Fragment {
         categoryManager = new CategoryManager(this.getActivity().getApplicationContext());
 
         games = gameManager.getAllGames();
+
         return root;
     }
 
@@ -88,7 +85,7 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         //Set up recycler view
-        RecyclerView rv = getView().findViewById(R.id.rv);
+        RecyclerView rv = getView().findViewById(R.id.rv_search);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rv.getContext(), layoutManager.getOrientation());

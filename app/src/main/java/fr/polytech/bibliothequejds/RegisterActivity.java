@@ -12,7 +12,10 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import fr.polytech.bibliothequejds.model.User;
 import fr.polytech.bibliothequejds.model.database.UserManager;
@@ -65,16 +68,16 @@ public class RegisterActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(registerBirthDate.getText().toString().isEmpty() || registerConfirmPassword.getText().toString().isEmpty() || registerPassword.getText().toString().isEmpty() || registerLogin.getText().toString().isEmpty())
+                if(registerBirthDate.getText().toString().trim().isEmpty() || registerConfirmPassword.getText().toString().trim().isEmpty() || registerPassword.getText().toString().trim().isEmpty() || registerLogin.getText().toString().trim().isEmpty())
                 {
-                    if(registerBirthDate.getText().toString().isEmpty())
+                    if(registerBirthDate.getText().toString().trim().isEmpty())
                     {
                         registerBirthDate.setError("Date de naissance obligatoire");
                         if(!registerLogin.hasFocus() || !registerConfirmPassword.hasFocus() || !registerPassword.hasFocus())
                             registerBirthDate.requestFocus();
                     }
 
-                    if(registerConfirmPassword.getText().toString().isEmpty())
+                    if(registerConfirmPassword.getText().toString().trim().isEmpty())
                     {
                         registerConfirmPassword.setError("Confirmation de mot de passe obligatoire");
 
@@ -82,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity
                             registerConfirmPassword.requestFocus();
                     }
 
-                    if(registerPassword.getText().toString().isEmpty())
+                    if(registerPassword.getText().toString().trim().isEmpty())
                     {
                         registerPassword.setError("Mot de passe obligatoire");
 
@@ -90,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity
                             registerPassword.requestFocus();
                     }
 
-                    if(registerLogin.getText().toString().isEmpty())
+                    if(registerLogin.getText().toString().trim().isEmpty())
                     {
                         registerLogin.setError("Nom d'utilisateur obligatoire");
                         if(!registerPassword.hasFocus() || !registerConfirmPassword.hasFocus() || !registerBirthDate.hasFocus())
@@ -99,11 +102,27 @@ public class RegisterActivity extends AppCompatActivity
                 }
                 else
                 {
-                    if (registerConfirmPassword.getText().toString().equals(registerPassword.getText().toString()))
+                    if (registerConfirmPassword.getText().toString().trim().equals(registerPassword.getText().toString().trim()))
                     {
-                        User registeredUser = new User(registerLogin.getText().toString(), registerPassword.getText().toString(), registerBirthDate.getText().toString());//FORMAT DATE
-                        userManager.addUser(registeredUser);
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        try {
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            Date date = sdf.parse(registerBirthDate.getText().toString());
+                            Date currentDate = new Date();
+                            if(date.before(currentDate) && !sdf.format(date).equals(sdf.format(currentDate))) {
+                                User registeredUser = new User(registerLogin.getText().toString().trim(), registerPassword.getText().toString().trim(), registerBirthDate.getText().toString());//FORMAT DATE
+                                userManager.addUser(registeredUser);
+                                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            }
+                            else
+                            {
+                                registerBirthDate.setError("La date de naissance ne peut pas correspondre à aujourd'hui ou plus tard");
+                                if (!registerLogin.hasFocus() || !registerPassword.hasFocus() || !registerConfirmPassword.hasFocus())
+                                    registerBirthDate.requestFocus();
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                     else
                     {

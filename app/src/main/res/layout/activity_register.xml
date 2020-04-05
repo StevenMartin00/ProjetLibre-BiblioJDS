@@ -14,7 +14,6 @@
         android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="@string/Inscription"
-        android:textColor="@android:color/secondary_text_light"
         android:textSize="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

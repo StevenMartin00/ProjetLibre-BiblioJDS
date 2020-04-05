@@ -1,5 +1,7 @@
 package fr.polytech.bibliothequejds.model;
 
+import android.graphics.Bitmap;
+
 public class Game
 {
     private String gameName;
@@ -12,6 +14,7 @@ public class Game
     private float difficulty;
     private String yearOfPublication;
     private String categoryName;
+    private Bitmap thumbnailBitmap;
 
     public Game()
     {
@@ -25,6 +28,7 @@ public class Game
         this.difficulty = 0f;
         this.yearOfPublication = "";
         this.categoryName = "";
+        this.thumbnailBitmap = null;
     }
 
     public Game(String gameName, String thumbnail)
@@ -133,5 +137,13 @@ public class Game
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public Bitmap getThumbnailBitmap() {
+        return thumbnailBitmap;
+    }
+
+    public void setThumbnailBitmap(Bitmap thumbnailBitmap) {
+        this.thumbnailBitmap = thumbnailBitmap;
     }
 }

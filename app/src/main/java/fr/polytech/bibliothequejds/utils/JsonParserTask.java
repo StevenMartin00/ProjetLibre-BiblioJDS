@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -75,7 +75,6 @@ public class JsonParserTask extends AsyncTask<Void, Void, Void> {
             while (sc.hasNext()) {
                 inline += (sc.nextLine());
             }
-            System.out.println(inline);
 
             JSONObject obj;
             try {
@@ -94,6 +93,9 @@ public class JsonParserTask extends AsyncTask<Void, Void, Void> {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+            finally {
+                sc.close();
             }
         }
         conn.disconnect();
@@ -124,7 +126,6 @@ public class JsonParserTask extends AsyncTask<Void, Void, Void> {
             while (sc.hasNext()) {
                 inline += (sc.nextLine());
             }
-            System.out.println(inline);
 
             JSONObject obj;
             try {
@@ -148,13 +149,16 @@ public class JsonParserTask extends AsyncTask<Void, Void, Void> {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            finally {
+                sc.close();
+            }
         }
-
+        removeGameDuplicates(categoriesIdForGame);
         for(Map.Entry entry : categoriesIdForGame.entrySet())
         {
             gameManager.addGame((Game) entry.getValue());
         }
-        
+        conn.disconnect();
         return null;
     }
 
@@ -162,6 +166,17 @@ public class JsonParserTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         if (dialog.isShowing()) {
             dialog.dismiss();
+        }
+    }
+
+    private static void removeGameDuplicates(final Map<String, Game> map) {
+        final Iterator<Map.Entry<String, Game>> iter = map.entrySet().iterator();
+        final HashSet<Game> valueSet = new HashSet<>();
+        while (iter.hasNext()) {
+            final Map.Entry<String, Game> next = iter.next();
+            if (!valueSet.add(next.getValue())) {
+                iter.remove();
+            }
         }
     }
 }

@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -59,7 +58,6 @@ public class SearchAdapter extends RecyclerView.Adapter<CustomViewHolder> implem
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         //ITEM CLICK
         holder.setItemClickListener(new ItemClickListener() {
             @Override

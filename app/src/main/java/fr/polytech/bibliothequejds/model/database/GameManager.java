@@ -15,8 +15,6 @@ import static fr.polytech.bibliothequejds.model.database.DBHelper.TABLE_GAMES;
 
 public class GameManager extends DBManager
 {
-    private CategoryManager categoryManager;
-
     /**
      * DBManager sole builder.
      *
@@ -29,9 +27,9 @@ public class GameManager extends DBManager
     public boolean addGame(Game game) {
 
         boolean isAdded;
+
         this.db.beginTransaction();
-        try
-        {
+        try {
             // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
             values.put("gameName", game.getGameName());
@@ -52,13 +50,9 @@ public class GameManager extends DBManager
             db.insertOrThrow(TABLE_GAMES, null, values);
             db.setTransactionSuccessful();
             isAdded = true;
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             isAdded = false;
-        }
-        finally
-        {
+        } finally {
             db.endTransaction();
         }
         return isAdded;

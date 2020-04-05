@@ -6,20 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Scanner;
 
 import fr.polytech.bibliothequejds.model.EncryptionUtils;
 import fr.polytech.bibliothequejds.model.User;
@@ -45,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User loginUser = userManager.getUser(loginEditText.getText().toString());
+                User loginUser = userManager.getUser(loginEditText.getText().toString().trim());
                 if(loginUser != null)
                 {
                     try

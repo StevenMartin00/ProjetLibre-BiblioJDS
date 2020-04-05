@@ -28,6 +28,8 @@
         android:layout_weight="1"
         android:text="ExCatégorie"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/lblCategorie"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lblCategorie"
         app:layout_constraintTop_toTopOf="@+id/lblCategorie" />
 
@@ -40,6 +42,8 @@
         android:layout_weight="1"
         android:text="Nombre"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/lblPartie"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lblPartie"
         app:layout_constraintTop_toTopOf="@+id/lblPartie" />
 
@@ -66,6 +70,8 @@
         android:layout_weight="1"
         android:text="4.5/5"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/lblComplexite"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/lblComplexite"
         app:layout_constraintTop_toTopOf="@+id/lblComplexite" />
 
@@ -120,6 +126,8 @@
         android:layout_weight="1"
         android:text="TextView"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/labelDateNaissance"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/labelDateNaissance"
         app:layout_constraintTop_toTopOf="@+id/labelDateNaissance" />
 
@@ -150,31 +158,5 @@
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPartie" />
-
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

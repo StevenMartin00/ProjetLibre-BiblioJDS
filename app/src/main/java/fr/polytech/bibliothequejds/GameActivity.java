@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
 import java.util.concurrent.ExecutionException;
 
 import fr.polytech.bibliothequejds.model.database.PlayedManager;
@@ -56,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
         Button ajouter = findViewById(R.id.buttonAjouterJeu);
         Button retirer = findViewById(R.id.buttonRetirerJeu);
         Button add = findViewById(R.id.buttonAdd);
-        Button remove = findViewById(R.id.buttonRemove);
+        final Button remove = findViewById(R.id.buttonRemove);
         TextView TVlabelPartie = findViewById(R.id.lblNbPartie);
         TextView TVpartie = findViewById(R.id.textViewNbPartie);
 
@@ -66,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
 
         //Note
         TextView TVnote = findViewById(R.id.note);
-        TVnote.setText(String.valueOf(note));
+        TVnote.setText(new DecimalFormat("##.##").format(note));
 
         //Image
         ImageView image = findViewById(R.id.imageView);
