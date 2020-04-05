@@ -97,19 +97,6 @@ public class SearchFragment extends Fragment {
         //Adapter
         adapter = new SearchAdapter(this.getActivity(), games);
         rv.setAdapter(adapter);
-
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPreferences", MODE_PRIVATE);
-        boolean firstRun = sharedPreferences.getBoolean("firstRun", true);
-        
-        if(firstRun)
-        {
-            //Get the list of games in Json from boardgameatlas
-            new JsonParserTask(this.getActivity(), gameManager, categoryManager).execute();
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("firstRun", false);
-            editor.apply();
-        }
     }
 
     @Override
